@@ -19,6 +19,7 @@ export interface Image {
 interface Result {
   tag: string
   success: boolean
+  error: string
 }
 
 export async function addTags(image: Image, tags: string[]): Promise<Result[]> {
@@ -59,8 +60,9 @@ export async function addTags(image: Image, tags: string[]): Promise<Result[]> {
         headers,
         body: targetManifest
       })
+      const data = await result.json()
 
-      return {tag, success: result.status === 201}
+      return {tag, success: result.status === 201, error: (result.status !== 201) ? data.errors[0].message : ''}
     })
   )
 }

@@ -33,7 +33,7 @@ export async function run(): Promise<void> {
 
       if (result.success === false) {
         core.setFailed(
-          `${image.target.repository}:${image.target.tag} could not be tagged with ${result.tag}`
+          `${image.target.repository}:${image.target.tag} could not be tagged with ${result.tag}: ${result.error}`
         )
       }
     }
